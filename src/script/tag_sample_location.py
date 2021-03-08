@@ -81,7 +81,7 @@ def collect_judgement_set():
 
 
 @runtime_counter
-def collect_judgement_set_with_tf_iwf():
+def collect_judgement_set_with_tf_iwf(output_path='../output/sample_loc_tf_iwf_judge_set.json'):
     load_cn_city_set()
 
     for aspect in focus_aspects:
@@ -116,7 +116,7 @@ def collect_judgement_set_with_tf_iwf():
             # word_dict[loc_type] = seg_list
 
             for seg in seg_list:
-                if seg not in seg_tf_dict:  # calc tf`s denominator
+                if seg not in seg_tf_dict:  # calc tf`s 分子
                     seg_tf_dict[seg] = 1
                 else:
                     seg_tf_dict[seg] += 1
@@ -145,7 +145,7 @@ def collect_judgement_set_with_tf_iwf():
         aspect_judgement_dict[aspect] = loc_type_tf_iwf_dict
         print("finish calc tf-iwf of {}".format(aspect))
 
-    with open('../output/sample_loc_tf_iwf_judge_set.json', 'w', encoding='utf-8') as f:
+    with open(output_path, 'w', encoding='utf-8') as f:
         f.write(json.dumps(aspect_judgement_dict))  # write to file
 
 
@@ -200,11 +200,11 @@ def _test_sample_loc_judgement_accuracy(path='../output/sample_loc_judge_set.jso
                     type_correct_dict[sample[1]] = 1
                 else:
                     type_correct_dict[sample[1]] += 1
-            else:
-                if sample[1] not in type_fail_dict:
-                    type_fail_dict[sample[1]] = {}
-                else:
-                    type_fail_dict
+            # else:
+            #     if sample[1] not in type_fail_dict:
+            #         type_fail_dict[sample[1]] = {}
+            #     else:
+            #         type_fail_dict
         for key in type_all_dict:
             print("{}`s accuracy rate on type {} is {}".format(aspect, key,
                                                                percent(type_correct_dict[key], type_all_dict[key])))
@@ -232,5 +232,6 @@ def predict_sampled_location_type():
 
 if __name__ == '__main__':
     # collect_judgement_set()
+
     collect_judgement_set_with_tf_iwf()
     _test_sample_loc_judgement_accuracy(path='../output/sample_loc_tf_iwf_judge_set.json')

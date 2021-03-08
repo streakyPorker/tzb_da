@@ -1,6 +1,8 @@
 from src.util import *
 
-path = '../../20200724 V1 Release/data_snapshot_20200724/禽肉类产品分类表.xlsx'
+path = '../newiter/禽肉类产品分类表.xlsx'
+
+
 
 df = pd.read_excel(path)
 
