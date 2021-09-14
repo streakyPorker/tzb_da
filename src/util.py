@@ -61,7 +61,9 @@ focus_aspects = ['fruit_veg', 'aquatic', 'meat']
 """
 non-const global
 """
-conn = sql.connect(user='root', host='localhost', password='123456', database='tzbv1')
+conn = sql.connect(user='root', host='localhost', password='123456789', database='hzda',
+                   sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,'
+                            'ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION')
 cursor = conn.cursor()
 cn_cities = set()
 
